@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IMC</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    {% if error_message %}
+    <h1>Erro</h1>
+    <p>{{ error_message }}</p>
+    <a href="/">Voltar</a>
+{% else %}
+    {% if nome and imc %}
+        <h1>Resultado do IMC</h1>
+        <p>Nome: {{ nome }}</p>
+        <p>IMC: {{ imc }}</p>
+        <p>Classificação: {{ classificacao }}</p>
+        <p>Peso Ideal: {{ peso_ideal }}</p>
+        <a href="/">Calcular novamente</a>
+    {% else %}
+        <h1>Calculadora de IMC</h1>
+        <form method="POST" action="/">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" required>
+
+            <label for="peso">Peso (kg):</label>
+            <input type="number" name="peso" step="0.01" required>
+
+            <label for="altura">Altura (m):</label>
+            <input type="number" name="altura" step="0.01" required>
+
+            <label for="genero">Gênero:</label>
+            <select name="genero" required>
+                <option value="homem">Homem</option>
+                <option value="mulher">Mulher</option>
+            </select>
+
+            <button type="submit">Calcular</button>
+        </form>
+    {% endif %}
+{% endif %}
+
+</body>
+</html>
